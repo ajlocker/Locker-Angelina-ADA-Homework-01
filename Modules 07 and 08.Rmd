@@ -1,0 +1,182 @@
+---
+title: "Modules 07 and 08"
+author: "Angelina Locker"
+date: "February 8, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+First, create a vector of 1 word character strings comprising the first line of the Gettysburg address: “Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.”
+```{r}
+gettysburg <- "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal"
+
+(gettysburg)
+
+```
+
+pull up the stringr package
+```{r}
+library(stringr)
+
+```
+
+
+1 word character strings
+```{r}
+gettys_split <- c(str_split(gettysburg," ", simplify = TRUE))
+(gettys_split)
+```
+
+every third element
+```{r}
+getty3 <- gettys_split[seq(from = 1, to = 30, by = 3)]
+(getty3)
+```
+
+remove punctuation and special character
+
+```{r}
+flow <- gsub("[[:punct:]]","","Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal")
+(flow)
+```
+extract 2nd, 3rd, and 6th columns of matrix
+```{r}
+m <- matrix(data = 1:80, nrow = 8, ncol = 10, byrow = FALSE)
+x <- m[ ,c(2,3,6)]
+print(x)
+```
+
+
+extract the 6th to 8th row and assign them to x
+```{r}
+x <- m[c(6,8), ]
+print(x)
+```
+
+extract the elements from row 2, column 2, to row 6, column 9 and assign them to x
+```{r}
+x<- m[c(2:6),c(2:9)]
+print(x)
+```
+construct a 4-dimensional, 400 element array (5x5x4x4) named "a" consisting of the numbers 400 to 1 (i.e. a descending series)
+```{r}
+a <- array(c(400:1), dim=c(5,5,4,4))
+print(a)
+```
+
+Given this matrix, what would the following return?
+```{r}
+a[1,1,1,2]
+
+a[2,3,2,]
+
+a[1:5, 1:5, 3, 3]
+```
+
+Create a list representing the (simplified) primate taxonomy outlined below. HINT: you can use lists as elements in a list.
+
+```{r Primates}
+Platyrrhini <- list("Platyrrhini", list("cebidae", "atelidae", "pitheciidae"))
+Catarrhini <- list("Catarrhini", list("cercopithecidae", "Hylobatidae", "Hominidae"))
+Anthropoidea <- list("Anthropoidea", list(Platyrrhini, Catarrhini))
+Tarsioidea <- list("Tarsioidea", list("Tarsiidae"))
+Haplorhini <- list("Haplorhini", list(Anthropoidea,Tarsioidea))
+Lemuroidea <- list("Lemuroidea", list("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae", "Daubentoiniidae"))
+Lorisoidea <- list("Lorisoidea", list("Lorisidae", "Galagidae"))
+Strepsirhini <- list("Strepsirhini", list(Lorisoidea, Lemuroidea))
+Primates <- list("Primates", list(Haplorhini, Strepsirhini))
+(Primates)
+```
+
+Making this look pretty using data.tree 
+```{r}
+library(data.tree)
+library(readr)
+
+A <- Node$new("Primates")
+  B1 <- A$AddChild("Haplorhini")
+    C1 <- B1$AddChild("Anthropoidea")
+      D1 <- C1$AddChild("Platyrrhini")
+        E1 <- D1$AddChild("Cebidae")
+        E2 <- D1$AddChild("Atelidae")
+        E3 <- D1$AddChild("Pitheciidae")
+      D2 <- C1$AddChild("Catarrhini")
+        E4 <- D2$AddChild("Cercopithecidae")
+        E5 <- D2$AddChild("Hylobatidae")
+        E6 <- D2$AddChild("Hominidae")
+    C2 <- B1$AddChild("Tarsioidea")
+      D3 <- C2$AddChild("Tarsiidae")
+  B2 <- A$AddChild("Strepsirhini")
+    C3 <-B2$AddChild("Lorisoidea")
+      D4 <- C3$AddChild("Lorisidae")
+      D5 <- C3$AddChild("Galagidae")
+    C4 <- B2$AddChild("Lemuroidea")
+      D6 <-C4$AddChild("Cheirogaleidae")
+      D7 <- C4$AddChild("Lepilemuridae")
+      D8 <- C4$AddChild("Indriidae")
+      D9 <- C4$AddChild("Lemuridae")
+      D10 <- C4$AddChild("Daubentoniidae")
+(A)
+```
+
+```{r}
+df <- read.csv(file = "C:/Users/ajlocker/Desktop/random-people.csv", sep = ",", header =  TRUE, stringsAsFactors = FALSE)
+```
+ 
+ create the matrix
+
+```{r}
+matrix <- matrix(data = c(3, 0, 1,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2), nrow = 5, ncol = 3, byrow = TRUE)
+(matrix)
+```
+
+coerce the matrix to a data frame
+```{r}
+m1 <- data.frame(matrix)
+(m1)
+
+```
+
+As a data frame, coerce the second column to be locical-valued(Boolean)
+```{r}
+m1$X2 <- as.logical(m1$X2)
+(m1)
+
+```
+
+As a data frame, coerce the third column to be factor valued
+```{r}
+m1$X3 <- as.factor(m1$X3)
+(m1)
+
+```
+
+```{r}
+(str(m1))
+```
+
+
+
