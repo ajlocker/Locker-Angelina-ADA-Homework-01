@@ -108,7 +108,7 @@ Lemuroidea <- list("Lemuroidea", list("Cheirogaleidae", "Lepilemuridae", "Indrii
 Lorisoidea <- list("Lorisoidea", list("Lorisidae", "Galagidae"))
 Strepsirhini <- list("Strepsirhini", list(Lorisoidea, Lemuroidea))
 Primates <- list("Primates", list(Haplorhini, Strepsirhini))
-(Primates)
+print(Primates)
 ```
 
 Making this look pretty using data.tree 
@@ -139,7 +139,7 @@ A <- Node$new("Primates")
       D8 <- C4$AddChild("Indriidae")
       D9 <- C4$AddChild("Lemuridae")
       D10 <- C4$AddChild("Daubentoniidae")
-(A)
+print(A)
 ```
 
 ```{r}
@@ -150,32 +150,32 @@ df <- read.csv(file = "C:/Users/ajlocker/Desktop/random-people.csv", sep = ",", 
 
 ```{r}
 matrix <- matrix(data = c(3, 0, 1,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2), nrow = 5, ncol = 3, byrow = TRUE)
-(matrix)
+print(matrix)
 ```
 
 coerce the matrix to a data frame
 ```{r}
 m1 <- data.frame(matrix)
-(m1)
+print(m1)
 
 ```
 
 As a data frame, coerce the second column to be locical-valued(Boolean)
 ```{r}
 m1$X2 <- as.logical(m1$X2)
-(m1)
+print(m1)
 
 ```
 
 As a data frame, coerce the third column to be factor valued
 ```{r}
 m1$X3 <- as.factor(m1$X3)
-(m1)
+print(m1)
 
 ```
 
 ```{r}
-(str(m1))
+print(str(m1))
 ```
 
 
